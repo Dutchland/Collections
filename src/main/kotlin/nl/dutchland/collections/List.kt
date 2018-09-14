@@ -1,5 +1,7 @@
 package nl.dutchland.collections
 
+import java.util.stream.Collectors
+
 interface List<T> : Collection<T> {
     @Throws(ArrayIndexOutOfBoundsException::class)
     fun get(index : Int) : T
@@ -18,5 +20,13 @@ interface List<T> : Collection<T> {
         fun <T> asList(collection: kotlin.collections.Collection<T>) : List<T> {
             return ListImpl.asList(collection)
         }
+
+        fun <T> asList(collection: Collection<T>) : List<T> {
+            return ListImpl.asList(collection.asJavaCollection())
+        }
+    }
+
+    fun asJavaList(): kotlin.collections.List<T> {
+        return stream().collect(Collectors.toList());
     }
 }
