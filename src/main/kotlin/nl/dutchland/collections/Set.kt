@@ -17,7 +17,7 @@ interface Set<T> : Collection<T> {
         }
     }
 
-    fun asJavaSet(): kotlin.collections.Set<T> {
+    fun toJavaSet(): kotlin.collections.Set<T> {
         return stream().collect(Collectors.toSet());
     }
 }

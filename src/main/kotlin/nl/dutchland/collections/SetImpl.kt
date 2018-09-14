@@ -3,39 +3,26 @@ package nl.dutchland.collections
 import java.util.stream.Stream
 import kotlin.collections.Collection
 
-class SetImpl<T> private constructor(private var list : kotlin.collections.List<T>): Set<T> {
-
+class SetImpl<T> private constructor(private var set : kotlin.collections.HashSet<T>): Set<T> {
     companion object {
         internal fun <T> asSet(collection: Collection<T>) : SetImpl<T> {
-            return SetImpl(ArrayList(collection))
+            kotlin.collections.HashSet(collection)
+            return SetImpl(kotlin.collections.HashSet(collection))
         }
     }
 
-    override fun isEmpty(): Boolean {
-        return this.size() == 0
-    }
-
-    override fun size(): Int {
-        return this.list.size
-    }
+    override val isEmpty = this.set.isEmpty()
+    override val size = this.set.size
 
     override fun contains(value: T): Boolean {
-        return this.list.contains(value)
+        return this.set.contains(value)
     }
 
-    override fun containsAll(values: Iterator<T>): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun hasNext(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun next(): T {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun containsAll(vararg values : T): Boolean {
+        return this.set.containsAll(values.toList());
     }
 
     override fun stream(): Stream<T> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return this.set.stream()
     }
 }
